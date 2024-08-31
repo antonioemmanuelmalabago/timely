@@ -19,7 +19,7 @@ const app = express()
 app.use(
   cors({
     origin: [
-      'https://taskmanager-frontend-i0zz.onrender.com/',
+      'https://taskmanager-frontend-i0zz.onrender.com',
       'http://localhost:3000',
       'http://localhost:3001',
     ],
