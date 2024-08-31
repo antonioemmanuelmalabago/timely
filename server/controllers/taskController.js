@@ -143,7 +143,7 @@ export const dashboardStatistics = async (req, res) => {
           .sort({ _id: -1 })
 
     const users = await User.find({ isActive: true })
-      .select('name title role isAdmin createdAt')
+      .select('name title role isAdmin isActive createdAt')
       .limit(10)
       .sort({ _id: -1 })
 
@@ -171,16 +171,96 @@ export const dashboardStatistics = async (req, res) => {
       }, {})
     ).map(([name, total]) => ({ name, total }))
 
+    // Fetch no. of contributions per user
+    const userContributions = allTasks.reduce((result, task) => {
+      const { stage, team } = task
+
+      team.forEach((member) => {
+        const name = member.name
+
+        // Find or create entry for user
+        let user = result.find((user) => user.name === name)
+        if (!user) {
+          user = { name, todo: 0, 'in progress': 0, completed: 0 }
+          result.push(user)
+        }
+
+        // Increase count for each priority
+        switch (stage) {
+          case 'todo':
+            user.todo += 1
+            break
+          case 'in progress':
+            user['in progress'] += 1
+            break
+          case 'completed':
+            user.completed += 1
+            break
+          default:
+            break
+        }
+      })
+
+      // Sort users based on no. of completed tasks
+      result.sort(function (a, b) {
+        if (a.completed === b.completed) {
+          if (a['in progress'] === b['in progress']) {
+            return b.todo - a.todo
+          } else {
+            return b['in progress'] - a['in progress']
+          }
+        } else {
+          return b.completed - a.completed
+        }
+      })
+
+      return result
+    }, [])
+
     // Calculate total tasks
     const totalTasks = allTasks.length
     const lastTenTask = allTasks?.slice(0, 10)
+
+    // Calculate total tasks of previous month
+    const groupLastMonthTasks = allTasks.reduce(
+      (result, task) => {
+        const stage = task.stage
+        const taskDate = new Date(task.date)
+        const now = new Date()
+
+        // First day of previous month
+        const startOfLastMonth = new Date(
+          now.getFullYear(),
+          now.getMonth() - 1,
+          1
+        )
+
+        // Last day of the previous month
+        const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0)
+
+        if (taskDate >= startOfLastMonth && taskDate <= endOfLastMonth) {
+          if (!result.lastMonthTasks[stage]) {
+            result.lastMonthTasks[stage] = 1
+          } else {
+            result.lastMonthTasks[stage] += 1
+          }
+
+          result.totalTasks += 1
+        }
+
+        return result
+      },
+      { lastMonthTasks: {}, totalTasks: 0 }
+    )
 
     const summary = {
       totalTasks,
       lastTenTask,
       users: isAdmin ? users : [],
       tasks: groupTasks,
+      lastMonthTasks: groupLastMonthTasks,
       graphData: groupData,
+      contributors: userContributions,
     }
 
     res.status(200).json({
