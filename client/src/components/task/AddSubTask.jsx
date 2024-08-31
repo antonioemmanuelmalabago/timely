@@ -38,9 +38,9 @@ const AddSubTask = ({ open, setOpen, id }) => {
         <form onSubmit={handleSubmit(handleOnSubmit)} className="">
           <Dialog.Title
             as="h2"
-            className="text-base font-bold leading-6 text-gray-900 mb-4"
+            className="text-lg font-bold leading-6 text-gray-900 mb-4"
           >
-            ADD SUB TASK
+            Add Subtask
           </Dialog.Title>
           <div className="mr-2 flex flex-col gap-6">
             <Textbox
@@ -82,7 +82,7 @@ const AddSubTask = ({ open, setOpen, id }) => {
           <div className="py-3 mt-4 flex sm:flex-row-reverse gap-4">
             <Button
               type="submit"
-              className="bg-blue-600 text-sm font-semibold text-white hover:bg-blue-700 sm:ml-3 sm:w-auto"
+              className="bg-[#4A90E2] text-sm font-semibold text-white hover:bg-blue-700 sm:ml-3 sm:w-auto"
               label="Add Task"
             />
 

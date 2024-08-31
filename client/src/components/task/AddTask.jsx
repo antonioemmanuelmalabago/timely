@@ -135,9 +135,9 @@ const AddTask = ({ open, setOpen, task }) => {
         <form onSubmit={handleSubmit(submitHandler)}>
           <Dialog.Title
             as="h2"
-            className="text-base font-bold leading-6 text-gray-900 mb-4"
+            className="text-lg font-bold leading-6 text-gray-900 mb-4"
           >
-            {task ? 'UPDATE TASK' : 'ADD TASK'}
+            {task ? 'Update Task' : 'Add Task'}
           </Dialog.Title>
           <div className="mt-2 flex flex-col gap-6">
             <Textbox
@@ -211,7 +211,7 @@ const AddTask = ({ open, setOpen, task }) => {
                 <Button
                   label="Submit"
                   type="submit"
-                  className="bg-blue-600 px-8 text-sm font-semibold text-white hover:bg-blue-700 sm:w-auto"
+                  className="bg-[#4A90E2] px-8 text-sm font-semibold text-white hover:bg-blue-700 sm:w-auto"
                 />
               )}
 

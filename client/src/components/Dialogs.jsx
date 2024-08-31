@@ -22,7 +22,7 @@ export default function ConfirmationDialog({
   return (
     <>
       <ModalWrapper open={open} setOpen={closeDialog}>
-        <div className="py-4 w-full flex flex-col gap-4 items-center justify-center">
+        <div className=" w-full flex flex-col gap-2 items-center justify-center">
           <Dialog.Title as="h3" className="">
             <p
               className={clsx(
@@ -32,7 +32,7 @@ export default function ConfirmationDialog({
                   : 'text-red-600 bg-red-200'
               )}
             >
-              <FaQuestion size={60} />
+              <FaQuestion size={30} />
             </p>
           </Dialog.Title>
 
@@ -40,11 +40,11 @@ export default function ConfirmationDialog({
             {msg ?? 'Are you sure you want to delete the selected record?'}
           </p>
 
-          <div className="bg-gray-50 py-3 sm:flex sm:flex-row-reverse gap-4">
+          <div className="bg-gray-50 py-2 gap-4 sm:flex sm:flex-row-reverse">
             <Button
               type="button"
               className={clsx(
-                'px-8 text-sm font-semibold text-white sm:w-auto',
+                'px-8 text-sm  mx-2 md:mx-0 font-semibold text-white sm:w-auto',
                 type === 'restore' || type === 'restoreAll'
                   ? 'bg-yellow-600'
                   : 'bg-red-600 hover:bg-red-500'
@@ -55,7 +55,7 @@ export default function ConfirmationDialog({
 
             <Button
               type="button"
-              className="bg-white px-8 text-sm font-semibold text-gray-900 sm:w-auto border"
+              className="bg-white px-8 mx-2 md:mx-0 text-sm font-semibold text-gray-900 sm:w-auto border"
               onClick={() => closeDialog()}
               label="Cancel"
             />

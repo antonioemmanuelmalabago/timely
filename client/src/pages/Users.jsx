@@ -87,15 +87,16 @@ const Users = () => {
         <th className="py-2">Email</th>
         <th className="py-2">Role</th>
         <th className="py-2">Active</th>
+        <th className="py-2 text-center">Options</th>
       </tr>
     </thead>
   )
 
   const TableRow = ({ user }) => (
     <tr className="border-b border-gray-200 text-gray-600 hover:bg-gray-400/10">
-      <td className="py-2">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full text-white flex items-center justify-center text-sm bg-blue-700">
+      <td className="p-2">
+        <div className="min-w-[200px] md:min-w-0 flex items-center gap-3">
+          <div className="w-9 h-9 rounded-full text-white flex items-center justify-center text-sm bg-[#4A90E2]">
             <span className="text-xs md:text-sm text-center">
               {getInitials(user.name)}
             </span>
@@ -104,23 +105,25 @@ const Users = () => {
         </div>
       </td>
 
-      <td className="p-2">{user.title}</td>
-      <td className="p-2">{user.email || 'user.emal.com'}</td>
-      <td className="p-2">{user.role}</td>
+      <td className="py-2 min-w-[120px] md:min-w-0">{user.title}</td>
+      <td className="py-2 min-w-[300px] md:min-w-0">
+        {user.email || 'user.emal.com'}
+      </td>
+      <td className="py-2 min-w-[120px] md:w-fullmd:min-w-0">{user.role}</td>
 
-      <td>
+      <td className="min-w-[80px] md:min-w-0">
         <button
           onClick={() => userStatusClick(user)}
           className={clsx(
-            'w-fit px-4 py-1 rounded-full',
-            user?.isActive ? 'bg-blue-200' : 'bg-yellow-100'
+            'w-fit px-4 py-1 rounded-full text-white',
+            user?.isActive ? 'bg-[#A88FEA]' : 'bg-[#FF8A65]'
           )}
         >
           {user?.isActive ? 'Active' : 'Disabled'}
         </button>
       </td>
 
-      <td className="p-2 flex gap-4 justify-end">
+      <td className="p-2 flex gap-1 md:gap-3 justify-center min-w-[50px] md:w-full">
         <Button
           className="text-blue-600 hover:text-blue-500 font-semibold sm:px-0"
           label="Edit"
@@ -146,7 +149,7 @@ const Users = () => {
           <Button
             label="Add New User"
             icon={<IoMdAdd className="text-lg" />}
-            className="flex flex-row-reverse gap-1 items-center bg-blue-600 text-white rounded-md 2xl:py-2.5"
+            className="flex flex-row-reverse gap-1 items-center bg-[#4A90E2] text-white rounded-md 2xl:py-2.5"
             onClick={() => setOpen(true)}
           />
         </div>

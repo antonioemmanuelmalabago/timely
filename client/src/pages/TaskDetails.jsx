@@ -23,6 +23,7 @@ import {
   useGetSingleTaskQuery,
   usePostTaskActivityMutation,
 } from '../redux/slices/api/taskApiSlice'
+import { LuDot } from 'react-icons/lu'
 
 const assets = [
   'https://images.pexels.com/photos/2418664/pexels-photo-2418664.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -40,7 +41,7 @@ const ICONS = {
 const bgColor = {
   high: 'bg-red-200',
   medium: 'bg-yellow-200',
-  low: 'bg-blue-200',
+  normal: 'bg-blue-200',
 }
 
 const TABS = [
@@ -60,7 +61,7 @@ const TASKTYPEICON = {
     </div>
   ),
   assigned: (
-    <div className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-500 text-white">
+    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-500 text-white">
       <FaUser size={14} />
     </div>
   ),
@@ -75,7 +76,7 @@ const TASKTYPEICON = {
     </div>
   ),
   'in progress': (
-    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-violet-600 text-white">
+    <div className="w-10 h-10 flex items-center justify-center rounded-full bg-violet-600 text-white">
       <GrInProgress size={16} />
     </div>
   ),
@@ -107,14 +108,14 @@ const TaskDetails = () => {
 
   return (
     <div className="w-full flex flex-col gap-3 mb-4 overflow-y-hidden">
-      <h1 className="txt-2xl text-gray-600 font-bold">{task?.title}</h1>
+      <h1 className="text-2xl text-gray-600 font-bold">{task?.title}</h1>
 
       <Tabs tabs={TABS} setSelected={setSelected}></Tabs>
 
       {selected === 0 ? (
         <div className="w-full flex flex-col md:flex-row gap-5 2xl:gap-8 bg-white shadow-md p-8 overflow-y-auto">
           {/* LEFT */}
-          <div className="w-full md:w-1/2 space-y-8">
+          <div className="w-full md:w-1/2 space-y-4">
             <div className="flex items-center gap-5">
               <div
                 className={clsx(
@@ -123,63 +124,72 @@ const TaskDetails = () => {
                   bgColor[task?.priority]
                 )}
               >
-                <span className="text-lg">{ICONS[task?.priority]}</span>
-                <span className="uppercase">{task?.priority} Priority</span>
+                <span className="capitalize">{task?.priority} Priority</span>
               </div>
 
               <div className={clsx('flex items-center gap-2')}>
                 <div
                   className={clsx(
-                    'w-5 h-4 rounded-full',
+                    'w-4 h-4 rounded-full',
                     TASK_TYPE[task?.stage]
                   )}
                 />
-                <span className="tex-black uppercase">{task?.stage}</span>
+                <span className="tex-black capitalize">{task?.stage}</span>
               </div>
             </div>
 
-            <p className="text-gray-500">
-              Created At: {new Date(task?.date).toDateString()}
+            <p className="text-gray-500 text-sm mt-5">
+              Created at: {new Date(task?.date).toDateString()}
             </p>
 
-            <div className="flex items-center gap-8 p-4 border-y border-gray-200">
-              <div className="space-x-2">
-                <span className="font-semibold">Assets: </span>
+            <div className="flex items-center justify-center gap-8 py-4 border-y text-md border-gray-200">
+              <div className="space-x-1">
+                <span>Assets:</span>
                 <span>{task?.assets?.length}</span>
               </div>
               <span className="text-gray-400">|</span>
+              <div className="space-x-1">
+                <span>Members:</span>
+                <span>{task?.team?.length}</span>
+              </div>
+              <span className="text-gray-400">|</span>
               <div className="space-x-2">
-                <span className="font-semibold">Sub-Task: </span>
+                <span>Subtask:</span>
                 <span>{task?.subTasks?.length}</span>
               </div>
             </div>
 
-            <div className="space-y-4 py-6">
-              <p className="text-gray-600 font-semibold text-sm">TASK TEAM</p>
-              <div className="space-y-3">
+            <div className="space-y-4 py-4">
+              <p className="text-gray-600 font-semibold text-sm">
+                Team Members
+              </p>
+              <div className="">
                 {task?.team?.map((member, index) => (
                   <div
                     key={index}
                     className="flex gap-4 py-2 items-center border-t border-gray-200"
                   >
-                    <div className="w-10 h-10 rounded-full text-white flex items-center justify-center text-sm -mr-1 bg-blue-600">
+                    <div className="w-10 h-10 rounded-full text-white flex items-center justify-center text-sm -mr-1 bg-[#4A90E2]">
                       <span className="text-center">
                         {getInitials(member?.name)}
                       </span>
                     </div>
 
                     <div>
-                      <p className="text-lg font-semibold">{member?.name}</p>
-                      <span className="text-gray-500">{member?.title}</span>
+                      <p className="text-sm font-semibold">{member?.name}</p>
+                      <span className="text-gray-500 text-sm">
+                        {member?.title}
+                      </span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-4 py-6">
-              <p className="text-gray-500 font-semibold text-sm">SUB-TASKS</p>
-              <div className="space-y-8">
+            <div className="space-y-2 py-2">
+              <p className="text-gray-500 font-semibold text-sm">Subtasks</p>
+              <div className=" pb-2 items-center border-t border-gray-200" />
+              <div className="space-y-4">
                 {task?.subTasks?.map((subTask, index) => (
                   <div key={index} className="flex gap-3">
                     <div className="w-10 h-10 flex items-center justify-center rounded-full bg-violet-200">
@@ -196,7 +206,7 @@ const TaskDetails = () => {
                         </span>
                       </div>
 
-                      <p className="text-gray-500">{subTask?.title}</p>
+                      <p className="text-gray-500 text-sm">{subTask?.title}</p>
                     </div>
                   </div>
                 ))}
@@ -205,7 +215,12 @@ const TaskDetails = () => {
           </div>
           {/* RIGHT */}
           <div className="w-full md:w-1/2 space-y-8">
-            <p className="text-lg font-semibold">ASSETS</p>
+            <p className="text-lg font-semibold mb-5">Assets</p>
+            {task?.assets?.length > 0 ? (
+              <></>
+            ) : (
+              <span className="text-sm text-gray-500">No assets found</span>
+            )}
             <div className="w-full grid grid-cols-2 gap-4">
               {task?.assets?.map((asset, index) => (
                 <img
@@ -259,17 +274,18 @@ const Activities = ({ activity, id, refetch }) => {
   const Card = ({ item }) => {
     return (
       <div className="flex space-x-4">
-        <div className="flex flex-col items-center flex-shrink-0">
+        <div className="flex flex-col items-center">
           <div className="w-10 h-10 flex items-center justify-center">
             {TASKTYPEICON[item?.type]}
           </div>
           <div className="w-0.5 bg-gray-300 h-full"></div>
         </div>
 
-        <div className="flex flex-col gap-y-1 mb-8">
+        <div className="flex flex-col mb-8">
           <p className="font-semibold">{item?.by?.name}</p>
-          <div className="text-gray-500 space-y-2">
+          <div className="flex text-gray-500 space-y-1">
             <span className="capitalize">{item?.type} </span>
+            <LuDot />
             <span className="text-sm">{moment(item?.date).fromNow()}</span>
           </div>
           <div className="text-gray-700">{item?.activity}</div>
@@ -279,10 +295,15 @@ const Activities = ({ activity, id, refetch }) => {
   }
 
   return (
-    <div className="w-full flex gap-10 2xl:gap-20 min-h-screen px-10 py-8 bg-white shadow rounded-md justify-between overflow-y-auto">
+    <div className="w-full flex flex-col-reverse md:flex-row gap-10 2xl:gap-20 min-h-screen px-10 py-8 bg-white shadow rounded-md justify-between overflow-y-auto">
       {/* LEFT */}
       <div className="w-full md:w-1/2">
         <h4 className="text-gray-600 font-semibold text-lg mb-5">Activities</h4>
+        {activity?.length > 0 ? (
+          <></>
+        ) : (
+          <span className="text-sm text-gray-500">No activities found</span>
+        )}
 
         <div className="w-full">
           {activity?.map((item, index) => (
@@ -301,7 +322,7 @@ const Activities = ({ activity, id, refetch }) => {
         </h4>
         <div className="w-full flex flex-wrap gap-5">
           {act_types.map((item, index) => (
-            <div key={item} className="flex gap-2 items-center">
+            <div key={item} className="flex gap-2 items-center text-gray-700">
               <input
                 type="checkbox"
                 className="w-4 h-4"
@@ -315,8 +336,8 @@ const Activities = ({ activity, id, refetch }) => {
             rows={10}
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Type here..."
-            className="bg-white w-full mt-10 border-gray-300 outline-none p-4 rounded-md focus:ring-2 ring-blue-500"
+            placeholder="Add description here..."
+            className="bg-white w-full mt-10 border-gray-300 outline-none p-4 rounded-md focus:ring-1 ring-blue-500"
           ></textarea>
           {isLoading ? (
             <Loading />
@@ -325,7 +346,7 @@ const Activities = ({ activity, id, refetch }) => {
               type="button"
               label="Submit"
               onClick={handleSubmit}
-              className="bg-blue-600 text-white rounded"
+              className="bg-[#4A90E2] text-white rounded"
             />
           )}
         </div>

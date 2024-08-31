@@ -34,7 +34,7 @@ const UserAvatar = () => {
       <div>
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="w-10 h-10 2xl:w-12 2x1:h-12 items-center justify-center rounded-full bg-blue-600">
+            <Menu.Button className="w-10 h-10  items-center justify-center rounded-full bg-[#4A90E2]">
               <span className="text-white font-semibold">
                 {getInitials(user?.name)}
               </span>
@@ -51,12 +51,12 @@ const UserAvatar = () => {
             leaveTo="transform opacity-0 scale-95"
           />
           <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-gray-100 rounded-md bg-white shadow-2xl ring-1 ring-black/5 focus:outline-none">
-            <div className="p-4">
+            <div className="p-2">
               <Menu.Item>
                 {({ active }) => (
                   <button
                     onClick={() => setOpen(true)}
-                    className="text-gray-700 group flex w-full items-center rounded-md px-2 py-2 text-base"
+                    className="text-gray-500 group flex w-full items-center rounded-md px-2 py-2 text-base hover:text-gray-700"
                   >
                     <FaUser className="mr-2" aria-hidden="true" />
                     Profile
@@ -68,7 +68,7 @@ const UserAvatar = () => {
                 {({ active }) => (
                   <button
                     onClick={() => setOpenPassword(true)}
-                    className="text-gray-700 group flex w-full items-center rounded-md px-2 py-2 text-base"
+                    className="text-gray-500 group flex w-full items-center rounded-md px-2 py-2 text-base hover:text-gray-700"
                   >
                     <FaUserLock className="mr-2" aria-hidden="true" />
                     Change Password
@@ -80,7 +80,7 @@ const UserAvatar = () => {
                 {({ active }) => (
                   <button
                     onClick={logoutHandler}
-                    className="text-red-600 group flex w-full items-center rounded-md px-2 py-2 text-base"
+                    className="text-gray-500 group flex w-full items-center rounded-md px-2 py-2 text-base hover:text-gray-700"
                   >
                     <IoLogOutOutline className="mr-2" aria-hidden="true" />
                     Logout

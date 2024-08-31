@@ -22,15 +22,17 @@ const UserInfo = ({ user }) => {
               leaveFrom="opacity-100 translate-y-0"
               leaveTo="opacity-0 translate-y-1"
             >
-              <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-80 max-w-sm -translate-x-3/4 transform px-4 sm:px-0">
-                <div className="flex items-center gap-4 rounded-lg shadow-lg bg-white p-8">
-                  <div className="w-16 h-16 bg-blue-600 rounded-full text-white flex items-center justify-center text-2xl">
+              <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-100 max-w-sm -translate-x-3/4 transform px-4 sm:px-0">
+                <div className="flex items-center gap-2 md:gap-4 rounded-lg shadow-lg bg-white p-4">
+                  <div className="min-w-14 min-h-14 md:min-w-16 md:min-h-16 bg-[#4A90E2] rounded-full text-white flex items-center justify-center text-xl md:text-2xl">
                     <span>{getInitials(user?.name)}</span>
                   </div>
 
-                  <div className="flex flex-col gap-y-1">
-                    <p className="text-black text-xl font-bold">{user.name}</p>
-                    <span className="text-base text-gray-500">
+                  <div className="flex flex-col gap-y-0">
+                    <p className="text-black text-base md:text-xl font-bold">
+                      {user.name}
+                    </p>
+                    <span className="text-sm md:text-base text-gray-500">
                       {user.title}
                     </span>
                     <span className=" text-blue-500">{user.email}</span>

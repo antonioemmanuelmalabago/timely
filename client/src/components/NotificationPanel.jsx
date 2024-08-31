@@ -10,6 +10,7 @@ import {
   useMarkNotifAsReadMutation,
 } from '../redux/slices/api/userApiSlice'
 import ViewNotification from './ViewNotification'
+import { LuDot } from 'react-icons/lu'
 
 const data = [
   {
@@ -86,10 +87,10 @@ const NotificationPanel = () => {
     <>
       <Popover className="relative">
         <Popover.Button className="inline-flex items-center outline-none">
-          <div className="w-10 h-10 flex items-center justify-center text-gray-800 relative">
+          <div className="w-11 h-11 flex items-center justify-center text-gray-800 relative">
             <IoIosNotificationsOutline className="text-4xl" />
             {data?.length > 0 && (
-              <span className="absolute text-center top-0 right-1 text-sm text-white font-semibold w-4 h-4 rounded-full bg-red-600">
+              <span className="absolute top-0 left-6 text-sm text-white font-semibold w-5 h-5 rounded-full bg-red-600">
                 {data?.length}
               </span>
             )}
@@ -105,31 +106,35 @@ const NotificationPanel = () => {
           leaveFrom="opacity-100 translate-y-0"
           leaveTo="opacity-0 translate-y-1"
         >
-          <Popover.Panel className="absolute -right-16 md:-right-2 z-10 mt-5 flex w-screen max-w-max  px-4">
+          <Popover.Panel className="absolute -right-16 md:-right-2 z-10 mt-5 flex w-screen max-w-max px-4">
             {({ close }) =>
               data?.length > 0 && (
-                <div className="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+                <div className="w-screen max-w-md flex-auto overflow-hidden rounded-md bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
                   <div className="p-4">
                     {data?.slice(0, 5).map((item, index) => (
                       <div
                         key={item._id + index}
-                        className="group relative flex gap-x-4 rounded-lg p-4 hover:bg-gray-50"
+                        className="group relative flex gap-x-4 rounded-lg p-3 hover:bg-gray-50"
                       >
-                        <div className="mt-1 h-8 w-8 flex items-center justify-center rounded-lg bg-gray-200 group-hover:bg-white">
-                          {ICONS[item.notiType]}
+                        <div className="h-10 w-10 p-3 flex items-center justify-center rounded-full bg-gray-200 group-hover:bg-white">
+                          {ICONS[item.notifType]}
                         </div>
 
                         <div
                           className="cursor-pointer"
                           onClick={() => viewHandler(item)}
                         >
-                          <div className="flex items-center gap-3 font-semibold text-gray-900 capitalize">
+                          <div className="flex items-center font-semibold text-gray-500 capitalize">
                             <p> {item.notiType}</p>
-                            <span className="text-xs font-normal lowercase">
+                            <span className=" text-xs font-normal normal-case">
+                              {item.task.title}
+                            </span>
+                            {<LuDot />}
+                            <span className=" text-xs font-normal normal-case">
                               {moment(item.createdAt).fromNow()}
                             </span>
                           </div>
-                          <p className="line-clamp-1 mt-1 text-gray-600">
+                          <p className="line-clamp-1 mt-1 text-sm text-gray-700">
                             {item.text}
                           </p>
                         </div>
@@ -144,7 +149,7 @@ const NotificationPanel = () => {
                         onClick={
                           item?.onClick ? () => item.onClick() : () => close()
                         }
-                        className="flex items-center justify-center gap-x-2.5 py-3 font-semibold text-blue-600 hover:bg-gray-100"
+                        className="flex items-center justify-center py-2.5 font-semibold text-blue-500 hover:bg-gray-100"
                       >
                         {item.name}
                       </Link>

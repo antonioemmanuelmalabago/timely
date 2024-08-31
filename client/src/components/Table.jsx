@@ -20,7 +20,7 @@ import AddTask from './task/AddTask'
 const ICONS = {
   high: <MdKeyboardDoubleArrowUp />,
   medium: <MdKeyboardArrowUp />,
-  low: <MdKeyboardArrowDown />,
+  normal: <MdKeyboardArrowDown />,
 }
 
 const Table = ({ tasks }) => {
@@ -62,52 +62,53 @@ const Table = ({ tasks }) => {
   const TableHeader = () => (
     <thead className="w-full border-b border-gray-300">
       <tr className="w-full text-black text-left">
-        <th className="py-2">Task Title</th>
+        <th className="p-2">Task Title</th>
         <th className="py-2">Priority</th>
         <th className="py-2 line-clamp-1">Created At</th>
         <th className="py-2">Assets</th>
         <th className="py-2">Team</th>
+        <th className="py-2 text-center">Options</th>
       </tr>
     </thead>
   )
 
   const TableRow = ({ task }) => (
     <tr className="border-b border-gray-200 text-gray-600 hover:bg-gray-300/10">
-      <td className="py-2">
+      <td className="p-2">
         <div className="flex items-center gap-2">
           <div
             className={clsx('w-4 h-4 rounded-full', TASK_TYPE[task.stage])}
           />
-          <p className="w-full line-clamp-2 text-base text-black">
+          <p className="min-w-[200px] md:w-full line-clamp-2 text-base text-black">
             {task?.title}
           </p>
         </div>
       </td>
 
       <td className="py-2">
-        <div className="flex gap-1 items-center">
+        <div className="min-w-[100px] md:w-full flex gap-1 items-center">
           <span className={clsx('text-lg', PRIORITYSTYLES[task?.priority])}>
             {ICONS[task?.priority]}
           </span>
-          <span className="capitalize line-clamp-1">
-            {task?.priority} Priority
+          <span className="capitalize line-clamp-1">{task?.priority}</span>
+        </div>
+      </td>
+
+      <td className="py-2">
+        <div className="min-w-[110px] md:w-full">
+          <span className="text-sm text-gray-600">
+            {formatDate(new Date(task?.date))}
           </span>
         </div>
       </td>
 
       <td className="py-2">
-        <span className="text-sm text-gray-600">
-          {formatDate(new Date(task?.date))}
-        </span>
-      </td>
-
-      <td className="py-2">
-        <div className="flex items-center gap-3">
-          <div className="flex gap-1 items-center text-sm text-gray-600">
+        <div className="min-w-[110px] md:w-full flex items-center gap-2 md:gap-3">
+          <div className="flex gap-0 md:gap-1 items-center text-sm text-gray-600">
             <BiMessageAltDetail />
             <span>{task?.activities?.length}</span>
           </div>
-          <div className="flex gap-1 items-center text-sm text-gray-600">
+          <div className="flex gap-0 md:gap-1 items-center text-sm text-gray-600">
             <MdAttachFile />
             <span>{task?.assets?.length}</span>
           </div>
@@ -119,7 +120,7 @@ const Table = ({ tasks }) => {
       </td>
 
       <td className="py-2">
-        <div className="flex">
+        <div className="min-w-[90px] w-full flex">
           {task?.team?.map((m, index) => (
             <div
               key={m._id}
@@ -134,7 +135,7 @@ const Table = ({ tasks }) => {
         </div>
       </td>
 
-      <td className="py-2 flex gap-2 md:gap-4 justify-end">
+      <td className="py-2 flex gap-1 md:gap-4 justify-center">
         <Button
           className="text-blue-600 hover:text-blue-500 sm:px-0 text-sm md:text-base"
           label="Edit"
@@ -153,7 +154,7 @@ const Table = ({ tasks }) => {
 
   return (
     <>
-      <div className="bg-white px-2 md:px-4 pt-4 pb-9 shadow-md rounded">
+      <div className="bg-white px-2 md:px-4 pt-4 mt-6 pb-9 shadow-md rounded">
         <div className="overflow-x-auto">
           <table className="w-full">
             <TableHeader />

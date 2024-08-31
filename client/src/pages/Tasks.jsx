@@ -20,9 +20,9 @@ const TABS = [
 ]
 
 const TASK_TYPE = {
-  todo: 'bg-blue-600',
-  'in progress': 'bg-yellow-600',
-  completed: 'bg-blue-600',
+  todo: 'bg-[#A88FEA]',
+  'in progress': 'bg-[#A3E4D7]',
+  completed: 'bg-[#FF8A65]',
 }
 
 const Task = () => {
@@ -53,7 +53,7 @@ const Task = () => {
             onClick={() => setOpen(true)}
             label="Create Task"
             icon={<IoMdAdd className="text-lg" />}
-            className="flex flex-row-reverse gap-1 bg-blue-600 text-white rounded-md py-2 2xl:py-2.5"
+            className="flex flex-row-reverse gap-1 bg-[#4A90E2] items-center text-white rounded-md py-2 2xl:py-2.5"
           />
         )}
       </div>

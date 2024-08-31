@@ -63,9 +63,9 @@ const AddUser = ({ open, setOpen, userData }) => {
         <form onSubmit={handleSubmit(handleOnSubmit)} className="">
           <Dialog.Title
             as="h2"
-            className="text-base font-bold leading-6 text-gray-900 mb-4"
+            className="text-lg font-bold leading-6 text-gray-900 mb-4"
           >
-            {userData ? 'UPDATE PROFILE' : 'ADD NEW USER'}
+            {userData ? 'Update Profile' : 'Add New User'}
           </Dialog.Title>
           <div className="mt-2 flex flex-col gap-6">
             <Textbox
@@ -123,7 +123,7 @@ const AddUser = ({ open, setOpen, userData }) => {
             <div className="py-3 mt-4 sm:flex sm:flex-row-reverse">
               <Button
                 type="submit"
-                className="bg-blue-600 px-8 text-sm font-semibold text-white hover:bg-blue-700  sm:w-auto"
+                className="bg-[#4A90E2] px-8 text-sm font-semibold text-white hover:bg-blue-700  sm:w-auto"
                 label="Submit"
               />
 
